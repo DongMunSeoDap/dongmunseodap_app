@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "module": "ESNext",
+        "moduleResolution": "Node",
+        "allowJs": true,
+        "baseUrl": ".",
+        "paths": {
+            "@state/*": [
+                "packages/state/src/*"
+            ],
+            "@graphql/*": [
+                "packages/graphql/src/*"
+            ],
+            "@ui/*": [
+                "packages/ui/src/*"
+            ]
+        },
+        "outDir": "dist",
+        "noEmit": true
+    }
+}
