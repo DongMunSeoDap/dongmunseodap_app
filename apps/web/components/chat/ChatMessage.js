@@ -1,3 +1,7 @@
+/**
+ * @param {{ type: 'user' | 'bot', text: string }} props
+ */
+
 export default function ChatMessage({ type, text }) {
     const isUser = type === 'user';
 
