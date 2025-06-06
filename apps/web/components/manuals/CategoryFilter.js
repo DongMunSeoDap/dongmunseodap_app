@@ -65,23 +65,12 @@ export default function CategoryFilter({ selectedCategory, onCategoryChange }) {
           value={category.value}
           label={category.label}
         >
-          <div style={styles.optionContent}>
+          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
             {category.icon}
-            <span style={styles.optionText}>{category.label}</span>
+            <span>{category.label}</span>
           </div>
         </Option>
       ))}
     </Select>
   );
 }
-
-const styles = {
-  optionContent: {
-    display: "flex",
-    alignItems: "center",
-    gap: "8px",
-  },
-  optionText: {
-    marginLeft: "4px",
-  },
-};

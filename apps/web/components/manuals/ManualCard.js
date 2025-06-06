@@ -10,13 +10,11 @@ import {
 import { useRouter } from "next/router";
 
 const { Text, Title } = Typography;
-const { Meta } = Card;
 
 export default function ManualCard({ manual }) {
   const router = useRouter();
 
   const handleViewManual = () => {
-    // 챗봇 페이지로 이동 (기존 채팅 기능 활용)
     router.push(
       `/chat?query=${encodeURIComponent(manual.title)}&manualId=${manual.id}`
     );
@@ -24,7 +22,6 @@ export default function ManualCard({ manual }) {
 
   const handleDownload = (e) => {
     e.stopPropagation();
-    // PDF 다운로드 로직
     const link = document.createElement("a");
     link.href = manual.pdfUrl;
     link.download = manual.pdfFileName;
@@ -43,8 +40,19 @@ export default function ManualCard({ manual }) {
     });
   };
 
-  const formatFileSize = (size) => {
-    return size;
+  const formatFileSize = (sizeInBytes) => {
+    // 입력값이 숫자가 아닌 경우 처리
+    if (!sizeInBytes || isNaN(sizeInBytes)) {
+      return "0 B";
+    }
+    const units = ["B", "KB", "MB", "GB"];
+    let value = Number(sizeInBytes); // 숫자로 변환
+    let unitIndex = 0;
+    while (value >= 1024 && unitIndex < units.length - 1) {
+      value /= 1024;
+      unitIndex++;
+    }
+    return `${value.toFixed(1)} ${units[unitIndex]}`;
   };
 
   const getCategoryColor = (category) => {
