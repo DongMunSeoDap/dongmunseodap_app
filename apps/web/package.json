@@ -5,9 +5,9 @@
     "@ant-design/icons": "^6.0.0",
     "antd": "^5.25.3",
     "graphql": "^16.11.0",
-    "next": "^15.3.2",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
+    "next": "^14.2.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-virtuoso": "^4.12.7",
     "swr": "^2.3.3",
     "urql": "^4.2.2",
@@ -19,11 +19,11 @@
     "start": "next start"
   },
   "devDependencies": {
-    "next": "^14.2.3",
+    "@ant-design/icons": "^5.0.0",
     "@types/node": "22.15.21",
     "@types/react": "19.1.5",
-    "typescript": "5.8.3",
     "antd": "^5.0.0",
-    "@ant-design/icons": "^5.0.0"
+    "next": "^14.2.3",
+    "typescript": "5.8.3"
   }
 }
