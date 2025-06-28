@@ -1,0 +1,25 @@
+.container {
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.uploadBox {
+    background-color: #f5f7fa;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    margin: 1rem 0;
+}
+
+.buttonWrapper {
+    display: flex;
+    justify-content: flex-end;
+}
