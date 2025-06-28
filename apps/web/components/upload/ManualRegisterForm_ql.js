@@ -1,21 +1,57 @@
 import { useState } from 'react';
-import { Typography, Steps, Radio, Input, Select, Upload, Button } from 'antd';
+import { Typography, Steps, Radio, Input, Select, Upload, Button, message } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+import { useMutation } from 'urql';
+import { UPLOAD_DOCUMENT } from '../../api/upload/uploadDocument';
 import styles from '../../styles/ManualRegisterForm.module.css';
 
 const { Title, Text } = Typography;
 const { Step } = Steps;
 const { Option } = Select;
 
-export default function ManualRegisterForm() {
+export default function ManualRegisterForm({ userId = "test-user" }) {
     const [type, setType] = useState('개인');
     const [brand, setBrand] = useState('');
     const [category, setCategory] = useState('');
     const [model, setModel] = useState('');
+    const [fileList, setFileList] = useState([]);
+
+    const [uploadResult, uploadDocument] = useMutation(UPLOAD_DOCUMENT);
+
+    const handleUpload = async () => {
+        if (fileList.length === 0) {
+            message.error('파일을 업로드해주세요.');
+            return;
+        }
+
+        const variables = {
+            file: fileList[0],
+            meta: {
+                mimeType: "application/pdf",
+                language: "ko"
+            },
+            context: {
+                version: "1.0",
+                eventType: "document_upload",
+                traceId: "abc-123-trace",
+                uploadedBy: userId
+            }
+        };
+
+        const result = await uploadDocument(variables);
+
+        if (result.data?.uploadDocument.status === "SUCCESS") {
+            message.success('설명서 업로드 성공');
+            console.log("업로드 결과:", result.data.uploadDocument);
+        } else {
+            message.error(result.data?.uploadDocument.message || '업로드 실패');
+        }
+    };
 
     return (
         <div className={styles.container}>
             <Title level={3} className={styles.header}>설명서 등록</Title>
-            <Steps size="small" current={0} style={{ marginBottom: '1rem' }}>
+            <Steps size="small" current={1} style={{ marginBottom: '1rem' }}>
                 <Step />
                 <Step />
                 <Step />
@@ -53,15 +89,22 @@ export default function ManualRegisterForm() {
                 style={{ width: '100%', marginBottom: '1rem' }}
             >
                 <Option value="AO42B538">AO42B538</Option>
-                <Option value="AO42B539">AO42B539</Option>
             </Select>
 
-            <Upload.Dragger name="files" multiple={false} style={{ background: '#f5f7fa' }}>
-                <p className={styles.uploadBox}>파일 업로드</p>
+            <Upload.Dragger
+                beforeUpload={(file) => {
+                    setFileList([file]);
+                    return false; // 수동 업로드
+                }}
+                fileList={fileList}
+                onRemove={() => setFileList([])}
+                accept=".pdf"
+            >
+                <p className={styles.uploadBox}>PDF 파일 업로드</p>
             </Upload.Dragger>
 
             <div className={styles.buttonWrapper}>
-                <Button type="primary">다음</Button>
+                <Button type="primary" onClick={handleUpload}>다음</Button>
             </div>
         </div>
     );
