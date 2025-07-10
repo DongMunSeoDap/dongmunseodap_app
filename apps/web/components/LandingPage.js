@@ -19,6 +19,11 @@ export default function LandingPage() {
     router.push("/manuals");
   };
 
+  const goToAuth = () => {
+    console.log("Navigating to /auth");
+    router.push("/auth");
+  };
+
   return (
     <div style={styles.wrapper}>
       <div style={styles.container}>
@@ -73,6 +78,15 @@ export default function LandingPage() {
           </Button>
           <Button type="default" size="large" block>
             요청하기
+          </Button>
+          <Button
+            type="default"
+            size="large"
+            block
+            onClick={goToAuth}
+            style={styles.browseButton}
+          >
+            로그인
           </Button>
         </div>
       </div>
