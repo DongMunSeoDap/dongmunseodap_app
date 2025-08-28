@@ -24,6 +24,10 @@ export default function LandingPage() {
     router.push("/auth");
   };
 
+  const goToUpload = () => {
+    router.push("/upload");
+  };
+
   return (
     <div style={styles.wrapper}>
       <div style={styles.container}>
@@ -72,6 +76,7 @@ export default function LandingPage() {
             type="primary"
             size="large"
             block
+            onClick={goToUpload}
             style={{ marginBottom: "0.75rem" }}
           >
             등록하기

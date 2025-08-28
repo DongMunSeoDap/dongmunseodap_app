@@ -1,5 +1,3 @@
-"use client";
-
 import { useSession, signOut } from "next-auth/react";
 import { Typography, Button, Card, Row, Col } from "antd";
 import { useEffect } from "react";
